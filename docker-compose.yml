@@ -1,0 +1,52 @@
+services:
+  lesson:
+    container_name: lesson-service
+    image: anastasismalandris/activation-api
+    ports:
+      - "8080:8080"
+    networks:
+      - postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin -d lesson" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    env_file:
+      - .env
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:

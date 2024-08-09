@@ -1,0 +1,8 @@
+com\example\lesson\model\Lesson$LessonBuilder.class
+com\example\lesson\dto\LessonCreationRequest.class
+com\example\lesson\controller\LessonController.class
+com\example\lesson\repository\LessonRepository.class
+com\example\lesson\exceptions\LessonNotFoundException.class
+com\example\lesson\service\LessonService.class
+com\example\lesson\LessonApplication.class
+com\example\lesson\model\Lesson.class
